@@ -3,49 +3,99 @@
 
 <head>
     <style>
-        .repleContainer {
-            background-color: whitesmoke;
+        div.container {
+            background-color: lightgoldenrodyellow;
             margin-bottom: 10px;
-            /* height: 100px; */
-            padding: 5px;
-            overflow: auto;
-        }
-        
-        .repleLogo {
-            width: 100px;
-            height: 100%;
-            background-color: lightgray;
-            padding: 5px;
-        }
-        
-        .repleMain {
-            height: 100%;
-            background-color: lemonchiffon;
-            padding: 5px;
+            border: 1px solid;
+            border-color: aqua;
+            padding: 10px;
         }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        //===========================================
+        // Global Variables
+        //-------------------------------------------
+        let spanBucket = []; //업데이트 대상 스팬 태그
+        let keySpanBucketUpdating = null;
+        const perMinute = 60;
+        const perHour = perMinute * 60;
+        const perDay = perHour * 24;
+        const perMonth = perDay * 30;
+        const perYear = perDay * 365;
+        //===========================================
+        function spanBucketUpdater() {
+            for (let item of spanBucket) {
+                item.showTimeElapsed();
+            }
+        }
+
+        function timeElapsed(seconds) {
+            let now = Math.round(new Date().valueOf() / 1000);
+            let diff = now - seconds;
+            if (Math.round(diff / perYear))
+                return Math.round(diff / perYear) + " 년 전";
+            if (Math.round(diff / perMonth))
+                return Math.round(diff / perMonth) + " 개월 전";
+            if (Math.round(diff / perDay))
+                return Math.round(diff / perDay) + " 일 전";
+            if (Math.round(diff / perHour))
+                return Math.round(diff / perHour) + " 시간 전";
+            if (Math.round(diff / perMinute))
+                return Math.round(diff / perMinute) + " 분 전";
+            return diff + " 초 전";
+        }
+
+        function backupAndSetup(spanTag) {
+            spanTag.htmlBackup = spanTag.innerHTML; //원본 텍스트 백업
+            spanTag.secondsPosted = Math.round(new Date(spanTag.htmlBackup) / 1000); //초로 변환
+            spanTag.addEventListener("mouseover", spanMouseOver);
+            spanTag.addEventListener("mouseout", spanMouseOut);
+            spanTag.showTimeElapsed = showTimeElapsed;
+        }
+        window.onload = function() {
+                let da = document.querySelectorAll("span.datePosted");
+                for (let item of da) {
+                    backupAndSetup(item);
+                    item.showTimeElapsed();
+                    spanBucket.push(item);
+                }
+                keySpanBucketUpdating = setInterval(spanBucketUpdater, 5000);
+            }
+            //=========================================
+            // Methods for span.datePosted
+            //-----------------------------------------
+        function spanMouseOver() {
+            this.innerHTML = this.htmlBackup;
+        }
+
+        function spanMouseOut() {
+            this.showTimeElapsed();
+        }
+
+        function showTimeElapsed() {
+            this.innerHTML = timeElapsed(this.secondsPosted);
+        }
+    </script>
 </head>
 
 <body>
-    <h1 class="showet">Show Elapsed Times</h1>
+    <h1>Show Elapsed Times</h1>
     <hr>
-    <div class="repleContainer">
-        <div class="repleLogo">Logo jhjhjhjhhkjhjkhkjhjPart</div>
-        <div class="repleMain"> jashdf ja sdjf asjdhfasd
-        </div>
+    <div class="container">
+        Posted: <span class="datePosted">2020.11.05 20:00</span>
     </div>
-    <div class="repleContainer">
-        <div class="repleLogo">Logo Part</div>
-        <div class="repleMain">Reple main part</div>
+    <div class="container">
+        Posted: <span class="datePosted">2020.11.06 12:50</span>
     </div>
-    <div class="repleContainer">
-        <div class="repleLogo">Logo Part</div>
-        <div class="repleMain">Reple main part</div>
+    <div class="container">
+        Posted: <span class="datePosted">2019.11.05 20:00</span>
     </div>
-
+    <div class="container">
+        Posted: <span class="datePosted">2018.11.05 20:00</span>
+    </div>
 </body>
 
 </html>
