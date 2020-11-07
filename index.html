@@ -63,18 +63,9 @@
             spanTag.addEventListener("mouseout", spanMouseOut);
             spanTag.showTimeElapsed = showTimeElapsed;
         }
-        window.onload = function() {
-                let da = document.querySelectorAll(".datePosted");
-                for (let item of da) {
-                    backupAndSetup(item);
-                    item.showTimeElapsed();
-                    spanBucket.push(item);
-                }
-                keySpanBucketUpdating = setInterval(spanBucketUpdater, 5000);
-            }
-            //=========================================
-            // Methods for span.datePosted
-            //-----------------------------------------
+        //=========================================
+        // Methods for span.datePosted
+        //-----------------------------------------
         function spanMouseOver() {
             this.innerHTML = this.htmlBackup;
         }
@@ -86,6 +77,17 @@
         function showTimeElapsed() {
             this.innerHTML = timeElapsed(this.secondsPosted);
         }
+        //=========================================
+        window.onload = function() {
+                let da = document.querySelectorAll(".datePosted");
+                for (let item of da) {
+                    backupAndSetup(item);
+                    item.showTimeElapsed();
+                    // spanBucket.push(item); //지속적 갱신 기능
+                }
+                // keySpanBucketUpdating = setInterval(spanBucketUpdater, 5000); //지속적 갱신 기능
+            }
+            //=========================================
     </script>
 </head>
 
@@ -96,7 +98,7 @@
         Posted: <span class="datePosted">2020.11.06 20:00</span>
     </div>
     <div class="container">
-        Posted: <span class="datePosted">2020.11.07 18:06</span>
+        Posted: <span class="datePosted">2020.11.07 18:24</span>
     </div>
     <div class="container">
         Posted: <span class="datePosted">2019.11.10 20:00</span>
