@@ -7,8 +7,16 @@
             background-color: lightgoldenrodyellow;
             margin-bottom: 10px;
             border: 1px solid;
-            border-color: aqua;
+            border-color: gray;
             padding: 10px;
+        }
+        
+        span.check {
+            float: right;
+        }
+        
+        p.memo {
+            margin-left: 30px;
         }
     </style>
     <meta charset="UTF-8">
@@ -35,28 +43,28 @@
         function timeElapsed(seconds) {
             let now = Math.round(new Date().valueOf() / 1000);
             let diff = now - seconds;
-            if (Math.round(diff / perYear))
-                return Math.round(diff / perYear) + " 년 전";
-            if (Math.round(diff / perMonth))
-                return Math.round(diff / perMonth) + " 개월 전";
-            if (Math.round(diff / perDay))
-                return Math.round(diff / perDay) + " 일 전";
-            if (Math.round(diff / perHour))
-                return Math.round(diff / perHour) + " 시간 전";
-            if (Math.round(diff / perMinute))
-                return Math.round(diff / perMinute) + " 분 전";
-            return diff + " 초 전";
+            if (Math.floor(diff / perYear))
+                return Math.floor(diff / perYear) + "년 전";
+            if (Math.floor(diff / perMonth))
+                return Math.floor(diff / perMonth) + "개월 전";
+            if (Math.floor(diff / perDay))
+                return Math.floor(diff / perDay) + "일 전";
+            if (Math.floor(diff / perHour))
+                return Math.floor(diff / perHour) + "시간 전";
+            if (Math.floor(diff / perMinute))
+                return Math.floor(diff / perMinute) + "분 전";
+            return diff + "초 전";
         }
 
         function backupAndSetup(spanTag) {
             spanTag.htmlBackup = spanTag.innerHTML; //원본 텍스트 백업
-            spanTag.secondsPosted = Math.round(new Date(spanTag.htmlBackup) / 1000); //초로 변환
+            spanTag.secondsPosted = Math.round(new Date(spanTag.htmlBackup).valueOf() / 1000); //초로 변환
             spanTag.addEventListener("mouseover", spanMouseOver);
             spanTag.addEventListener("mouseout", spanMouseOut);
             spanTag.showTimeElapsed = showTimeElapsed;
         }
         window.onload = function() {
-                let da = document.querySelectorAll("span.datePosted");
+                let da = document.querySelectorAll(".datePosted");
                 for (let item of da) {
                     backupAndSetup(item);
                     item.showTimeElapsed();
@@ -82,19 +90,21 @@
 </head>
 
 <body>
-    <h1>Show Elapsed Times</h1>
+    <h1>Show Elapsed Times hj</h1>
     <hr>
     <div class="container">
-        Posted: <span class="datePosted">2020.11.05 20:00</span>
+        Posted: <span class="datePosted">2020.11.06 20:00</span>
     </div>
     <div class="container">
-        Posted: <span class="datePosted">2020.11.06 12:50</span>
+        Posted: <span class="datePosted">2020.11.07 18:06</span>
     </div>
     <div class="container">
-        Posted: <span class="datePosted">2019.11.05 20:00</span>
+        Posted: <span class="datePosted">2019.11.10 20:00</span>
     </div>
     <div class="container">
-        Posted: <span class="datePosted">2018.11.05 20:00</span>
+        Posted: <span class="datePosted">2020.04.05 20:00</span>
+        <span class="check">X</span>
+        <p class="memo">Lorem ipsum</p>
     </div>
 </body>
 
