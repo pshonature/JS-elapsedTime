@@ -6,8 +6,7 @@
         div.container {
             background-color: lightgoldenrodyellow;
             margin-bottom: 10px;
-            border: 1px solid;
-            border-color: gray;
+            border: 1px solid gray;
             padding: 10px;
         }
         
@@ -17,6 +16,15 @@
         
         p.memo {
             margin-left: 30px;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        td {
+            border: 1px solid gray;
+            border-radius: 5px;
         }
     </style>
     <meta charset="UTF-8">
@@ -77,6 +85,13 @@
         function showTimeElapsed() {
             this.innerHTML = timeElapsed(this.secondsPosted);
         }
+        //-----------------------------------------
+        function divMoveUp() {
+            if (this.previousElementSibling.tagName != "DIV")
+                return alert("Can't move up anymore!!");
+            let parent = this.parentNode;
+            parent.insertBefore(this, this.previousElementSibling);
+        }
         //=========================================
         window.onload = function() {
                 let da = document.querySelectorAll(".datePosted");
@@ -86,6 +101,10 @@
                     // spanBucket.push(item); //지속적 갱신 기능
                 }
                 // keySpanBucketUpdating = setInterval(spanBucketUpdater, 5000); //지속적 갱신 기능
+                let divs = document.querySelectorAll("div");
+                for (let item of divs) {
+                    item.addEventListener("click", divMoveUp);
+                }
             }
             //=========================================
     </script>
@@ -108,6 +127,23 @@
         <span class="check">X</span>
         <p class="memo">Lorem ipsum</p>
     </div>
+    <table>
+        <tr>
+            <td>
+                hello
+            </td>
+        </tr>
+        <tr>
+            <td>
+                hello
+            </td>
+        </tr>
+        <tr>
+            <td>
+                hello
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
