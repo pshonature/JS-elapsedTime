@@ -87,10 +87,16 @@
         }
         //-----------------------------------------
         function divMoveUp() {
-            if (this.previousElementSibling.tagName != "DIV")
-                return alert("Can't move up anymore!!");
+            // if (this.previousElementSibling.tagName != this.tagName)
+            //     return alert(this.previousElementSibling);
             let parent = this.parentNode;
             parent.insertBefore(this, this.previousElementSibling);
+        }
+
+        function tdMoveUp() {
+            let ctr = this.parentNode;
+            let parent = ctr.parentNode;
+            parent.insertBefore(ctr, ctr.previousElementSibling);
         }
         //=========================================
         window.onload = function() {
@@ -105,6 +111,11 @@
                 for (let item of divs) {
                     item.addEventListener("click", divMoveUp);
                 }
+                let tds = document.querySelectorAll("td");
+                for (let item of tds) {
+                    item.addEventListener("click", tdMoveUp);
+                }
+
             }
             //=========================================
     </script>
@@ -130,17 +141,17 @@
     <table>
         <tr>
             <td>
-                hello
+                hello11
             </td>
         </tr>
         <tr>
             <td>
-                hello
+                hello22
             </td>
         </tr>
         <tr>
             <td>
-                hello
+                hello33
             </td>
         </tr>
     </table>
