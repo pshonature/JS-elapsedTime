@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #myBtn {
+            position: absolute;
+            left: 10px;
+            top: 50px;
+        }
+    </style>
+    <script>
+        function myFunction() {
+            let btn = document.getElementById("myBtn");
+            btn.style.left = "100px";
+            let cleft = parseFloat(btn.style.left);
+            btn.style.left = (cleft + 100) + 'px';
+        }
+
+        function moveDown() {
+            // alert(document.getElementById("myBtn").style.top);
+            let btn = document.getElementById("myBtn");
+            let st = window.getComputedStyle(btn, null);
+            // btn.style.top = "100px";
+            let ctop = parseFloat(st.top);
+            // alert(ctop);
+            btn.style.top = (ctop + 50) + 'px';
+        }
+        // window.onload = function() {
+        //     let btn = document.getElementById("myBtn");
+        //     btn.style.top = "50px";
+        //     btn.style.left = "50px";
+
+        // }
+    </script>
+</head>
+
+<body>
+    <button type="button" onclick="moveDown();">Move down Button</button><br>
+
+    <button type="button" id="myBtn" onclick="myFunction()">Set left position to 100 px</button>
+
+</body>
+
+</html>
